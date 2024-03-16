@@ -1,9 +1,14 @@
 plugins {
     id("java")
+    application
 }
 
 group = "com.ryancyq"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass.set("com.ryancyq.concurrency.Program")
+}
 
 repositories {
     mavenCentral()
