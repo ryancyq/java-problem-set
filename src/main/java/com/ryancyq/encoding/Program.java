@@ -2,6 +2,8 @@ package com.ryancyq.encoding;
 
 public class Program {
     public static String toOctal(int decimal) {
+        if (decimal == 0) return "0";
+
         StringBuilder octal = new StringBuilder();
         while (decimal > 0) {
             int rem = decimal % 8;
@@ -9,7 +11,6 @@ public class Program {
             decimal -= rem;
             decimal /= 8;
         }
-        if (octal.isEmpty()) octal.append("0");
         return octal.toString();
     }
 
