@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Program {
-    public static void run(int[] input, int expected) {
-        run(input, expected, false);
-    }
+public class AdjacentElements {
+    public boolean isDebug = false;
 
-    public static void run(int[] input, int expected, boolean debug) {
+    public int count(int[] input) {
         Map<Integer, ArrayList<Integer>> frequencies = new HashMap<>();
         for (int i = 1; i < input.length; i++) {
             int prev = input[i - 1];
@@ -22,7 +20,7 @@ public class Program {
             frequencies.get(sum).add(i);
         }
 
-        if (debug) {
+        if (isDebug) {
             String freq = frequencies.entrySet().stream().map(
                     (entry) -> {
                         return entry.getKey() +
@@ -33,12 +31,12 @@ public class Program {
         }
 
         int max = Integer.MIN_VALUE;
-        for (ArrayList<Integer> indicies : frequencies.values()) {
+        for (ArrayList<Integer> indices : frequencies.values()) {
             int subtotal = 0;
             int prev = -1;
             int i = 0;
-            while (i < indicies.size()) {
-                int cur = indicies.get(i);
+            while (i < indices.size()) {
+                int cur = indices.get(i);
                 if (i >= 1) {
                     if (prev + 1 < cur) {
                         prev = cur;
@@ -54,13 +52,22 @@ public class Program {
             max = Math.max(max, subtotal);
         }
 
+        return max;
+    }
+
+    public void run(int[] input, int expected) {
+        int max = count(input);
         System.out.println("input: " + Arrays.stream(input).mapToObj(String::valueOf).collect(Collectors.joining(",", "[", "]")) + ", output: " + max);
-        System.out.println("match: " + (max == expected) + ", expected: " + expected);
+        System.out.println("match: " + (max == expected) + ", actual:" + max + ", expected: " + expected);
     }
 
     public static void main(String[] args) {
-        run(new int[]{1, 1, 1, 1, 1}, 2);
-        run(new int[]{1, 9, 9, 2, 8, 0, 10, 0, 3, 7}, 4);
-        run(new int[]{1000000, 1, 1, 1000001, 0}, 2);
+        new AdjacentElements().run(new int[]{1, 1, 1, 1, 1}, 2);
+        new AdjacentElements().run(new int[]{1, 9, 9, 2, 8, 0, 10, 0, 3, 7}, 4);
+        new AdjacentElements().run(new int[]{1000000, 1, 1, 1000001, 0}, 2);
+
+        int[] identical = new int[100000];
+        Arrays.fill(identical, 1);
+        new AdjacentElements().run(identical, 50000);
     }
 }
