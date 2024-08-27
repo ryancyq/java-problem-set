@@ -1,7 +1,9 @@
 package com.ryancyq.encoding;
 
 public class Program {
-    public static String toOctal(int decimal) {
+    public boolean isDebug = false;
+
+    public String toOctal(int decimal) {
         if (decimal == 0) return "0";
 
         StringBuilder octal = new StringBuilder();
@@ -14,7 +16,7 @@ public class Program {
         return octal.toString();
     }
 
-    public static Integer fromHex(String hex) {
+    public Integer fromHex(String hex) {
         int sum = 0;
         char[] chars = hex.toCharArray();
         for (int c = chars.length - 1; c >= 0; c--) {
@@ -32,11 +34,7 @@ public class Program {
         return sum;
     }
 
-    public static void run(String input, String expected) {
-        run(input, expected, false);
-    }
-
-    public static void run(String input, String expected, boolean debug) {
+    public String transcode(String input) {
         StringBuilder output = new StringBuilder();
 
         int chunkSize = 6;
@@ -51,7 +49,7 @@ public class Program {
             String octalString = toOctal(hexDecimal);
             octal.append(octalString);
 
-            if (debug) {
+            if (isDebug) {
                 System.out.println("hex: " + hexDecimal + " lib: " + Integer.parseInt(hex, 16));
                 System.out.println("oct: " + octalString + " lib: " + Integer.toOctalString(hexDecimal));
             }
@@ -64,15 +62,20 @@ public class Program {
             output.insert(0, octal);
         }
 
+        return output.toString();
+    }
+
+    public void run(String input, String expected) {
+        String output = transcode(input);
         System.out.println("input: " + input + ", output: " + output);
-        System.out.println("match: " + output.toString().equals(expected) + ", expected: " + expected);
+        System.out.println("match: " + output.equals(expected) + ", expected: " + expected);
     }
 
     public static void main(String[] args) {
-        run("0", "0");
-        run("8", "10");
-        run("10", "20");
-        run("123456789ABCDEF", "4432126361152746757");
+        new Program().run("0", "0");
+        new Program().run("8", "10");
+        new Program().run("10", "20");
+        new Program().run("123456789ABCDEF", "4432126361152746757");
     }
 }
 
