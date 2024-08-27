@@ -57,7 +57,7 @@ public class AdjacentElements {
 
     public void run(int[] input, int expected) {
         int max = count(input);
-        System.out.println("input: " + Arrays.stream(input).mapToObj(String::valueOf).collect(Collectors.joining(",", "[", "]")) + ", output: " + max);
+        System.out.println("input: " + Arrays.stream(input).mapToObj(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         System.out.println("match: " + (max == expected) + ", actual:" + max + ", expected: " + expected);
     }
 
