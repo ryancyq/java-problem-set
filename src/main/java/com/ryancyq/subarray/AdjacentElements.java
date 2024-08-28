@@ -69,5 +69,9 @@ public class AdjacentElements {
         int[] identical = new int[100000];
         Arrays.fill(identical, 1);
         new AdjacentElements().run(identical, 50000);
+
+        int[] maxValue = new int[100000];
+        Arrays.fill(identical, 1000000000);
+        new AdjacentElements().run(maxValue, 50000);
     }
 }

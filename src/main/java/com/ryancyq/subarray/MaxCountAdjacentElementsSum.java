@@ -84,5 +84,13 @@ public class MaxCountAdjacentElementsSum {
         new MaxCountAdjacentElementsSum().run(new int[]{1, 3, 5, 6, 7, 9, 11}, 1);
         new MaxCountAdjacentElementsSum().run(new int[]{0, 1000000000, 0, 1, 999999999, 1}, 2);
         new MaxCountAdjacentElementsSum().run(new int[]{1, 1, 3, 2, 2, 1, 1, 3}, 3);
+
+        int[] identical = new int[100000];
+        Arrays.fill(identical, 1);
+        new MaxCountAdjacentElementsSum().run(identical, 5000);
+
+        int[] maxValue = new int[100000];
+        Arrays.fill(identical, 1000000000);
+        new MaxCountAdjacentElementsSum().run(maxValue, 5000);
     }
 }
